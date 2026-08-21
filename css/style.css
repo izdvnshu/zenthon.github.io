@@ -96,6 +96,7 @@ body::before {
 }
 
 .logo {
+  position: relative;
   font-family: var(--font-px);
   font-size: 26px;
   color: #ffffff;
@@ -110,6 +111,37 @@ body::before {
     3px 3px 0 var(--purple-dark),
     4px 4px 0 var(--purple-dark);
   user-select: none;
+}
+
+.logo::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.65) 45%,
+    #ffffff 50%,
+    rgba(255, 255, 255, 0.65) 55%,
+    transparent 68%
+  );
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: logo-shine 3.6s ease-in-out infinite;
+}
+
+@keyframes logo-shine {
+  0%       { background-position: 220% 0; }
+  45%      { background-position: -160% 0; }
+  100%     { background-position: -160% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo::after { animation: none; }
 }
 
 .logo-sm {
