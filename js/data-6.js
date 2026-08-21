@@ -1,4 +1,4 @@
-/* ZENTHON — Python examples (file 6 of 6): CLASS 11 PROGRAMS */
+/* ZENTHON — Python examples (file 6 of 6): SPECIAL 1 */
 window.PY_DATA = window.PY_DATA || [];
 window.PY_DATA = window.PY_DATA.concat([
 

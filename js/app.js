@@ -26,7 +26,7 @@ const CATS = [
   { id: "os-sys",          name: "OS & SYS", icon: "23" },
   { id: "algorithms",      name: "ALGORITHMS", icon: "24" },
   { id: "projects",        name: "MINI PROJECTS", icon: "25" },
-  { id: "class11",         name: "CLASS 11 PROGRAMS", icon: "26" }
+  { id: "class11",         name: "SPECIAL 1", icon: "26" }
 ];
 
 const ALL = (window.PY_DATA || []).filter(e => e && e.id);
