@@ -318,6 +318,22 @@ window.addEventListener("scroll", () => {
 });
 topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
+/* ---------- logo: 1 click = GitHub, 2 clicks = Instagram ---------- */
+const logoBlock = document.querySelector(".logo-block");
+let logoClickTimer = null;
+logoBlock.addEventListener("click", (e) => {
+  e.preventDefault();
+  clearTimeout(logoClickTimer);
+  logoClickTimer = setTimeout(() => {
+    window.open("https://github.com/izdvnshu", "_blank", "noopener");
+  }, 250);
+});
+logoBlock.addEventListener("dblclick", (e) => {
+  e.preventDefault();
+  clearTimeout(logoClickTimer);
+  window.open("https://www.instagram.com/devanshu.fps/?hl=en", "_blank", "noopener");
+});
+
 /* ---------- hero actions ---------- */
 document.getElementById("startBtn").addEventListener("click", () => {
   const first = document.querySelector(".sec");
