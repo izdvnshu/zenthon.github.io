@@ -726,6 +726,61 @@ function closeLab() {
 
 labClose.addEventListener("click", closeLab);
 
+/* ---------- TRACK ---------- */
+const trackModal = document.getElementById("trackModal");
+const trackList = document.getElementById("trackList");
+
+document.getElementById("trackBtn").addEventListener("click", () => {
+  renderTrack();
+  trackModal.classList.add("show");
+});
+document.getElementById("trackClose").addEventListener("click", () => {
+  trackModal.classList.remove("show");
+});
+trackModal.addEventListener("click", (e) => {
+  if (e.target === trackModal) trackModal.classList.remove("show");
+});
+window.addEventListener("keydown", (ev) => {
+  if (ev.key === "Escape") trackModal.classList.remove("show");
+});
+
+function renderTrack() {
+  const total = ALL.length;
+  const totalDone = ALL.filter(e => done.has(e.id)).length;
+
+  document.getElementById("trackDone").textContent = totalDone + "/" + total;
+  document.getElementById("trackPct").textContent = total ? Math.round(totalDone / total * 100) + "%" : "0%";
+
+  let chaptersDone = 0;
+  trackList.innerHTML = "";
+
+  CATS.forEach(cat => {
+    const entries = ALL.filter(e => e.cat === cat.id);
+    if (!entries.length) return;
+    const d = entries.filter(e => done.has(e.id)).length;
+    const complete = d === entries.length;
+    if (complete) chaptersDone++;
+
+    const row = document.createElement("div");
+    row.className = "track-row" + (complete ? " complete" : "");
+    row.title = "GO TO " + cat.name;
+    row.innerHTML =
+      '<div class="track-row-top">' +
+        '<span class="track-name">' + cat.icon + " · " + cat.name + "</span>" +
+        '<span class="track-count">' + d + "/" + entries.length + "</span>" +
+      "</div>" +
+      '<div class="progress-bar"><div class="progress-fill" style="width:' + (entries.length ? d / entries.length * 100 : 0) + '%"></div></div>';
+    row.addEventListener("click", () => {
+      trackModal.classList.remove("show");
+      const target = document.getElementById("sec-" + cat.id);
+      if (target) target.scrollIntoView({ behavior: "smooth" });
+    });
+    trackList.appendChild(row);
+  });
+
+  document.getElementById("trackChapters").textContent = chaptersDone + "/" + CATS.length;
+}
+
 window.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape" && labModal.classList.contains("show")) closeLab();
 });

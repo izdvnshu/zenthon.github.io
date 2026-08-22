@@ -28,6 +28,7 @@
     <div class="header-stats" id="headerStats">LOADING...</div>
     <button class="hdr-btn" id="studyToggle">STUDY MODE</button>
     <button class="hdr-btn" id="labBtn">ZEN LAB</button>
+    <button class="hdr-btn" id="trackBtn">TRACK</button>
   </div>
 </header>
 
@@ -239,6 +240,24 @@
       <rect x="5" y="4" width="1" height="1" fill="#c77dff"/>
       <rect x="14" y="4" width="1" height="1" fill="#c77dff"/>
     </svg>
+  </div>
+</div>
+
+<div class="modal" id="trackModal">
+  <div class="modal-box pixel-border track-box">
+    <div class="modal-title">TRACK — YOUR PROGRESS</div>
+
+    <div class="track-summary">
+      <div class="stat"><div class="stat-num" id="trackDone">0</div><div class="stat-label">COMPLETED</div></div>
+      <div class="stat"><div class="stat-num" id="trackPct">0%</div><div class="stat-label">OF ALL CODES</div></div>
+      <div class="stat"><div class="stat-num" id="trackChapters">0</div><div class="stat-label">CHAPTERS DONE</div></div>
+    </div>
+
+    <div class="track-list" id="trackList"></div>
+
+    <div class="modal-actions">
+      <button class="px-btn red" id="trackClose">CLOSE</button>
+    </div>
   </div>
 </div>
 
