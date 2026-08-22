@@ -726,54 +726,6 @@ function closeLab() {
 
 labClose.addEventListener("click", closeLab);
 
-/* ---------- SETTINGS ---------- */
-const settingsModal = document.getElementById("settingsModal");
-const themeDarkBtn = document.getElementById("themeDarkBtn");
-const themeLightBtn = document.getElementById("themeLightBtn");
-const copyEmailBtn = document.getElementById("copyEmailBtn");
-
-document.getElementById("settingsBtn").addEventListener("click", () => {
-  settingsModal.classList.add("show");
-});
-document.getElementById("settingsClose").addEventListener("click", () => {
-  settingsModal.classList.remove("show");
-});
-settingsModal.addEventListener("click", (e) => {
-  if (e.target === settingsModal) settingsModal.classList.remove("show");
-});
-window.addEventListener("keydown", (ev) => {
-  if (ev.key === "Escape") settingsModal.classList.remove("show");
-});
-
-function setTheme(mode) {
-  document.body.classList.toggle("theme-light", mode === "light");
-  themeDarkBtn.classList.toggle("active", mode === "dark");
-  themeLightBtn.classList.toggle("active", mode === "light");
-  try { localStorage.setItem("zenthon-theme", mode); } catch (err) {}
-}
-themeDarkBtn.addEventListener("click", () => setTheme("dark"));
-themeLightBtn.addEventListener("click", () => setTheme("light"));
-
-let savedTheme = "dark";
-try { savedTheme = localStorage.getItem("zenthon-theme") || "dark"; } catch (err) {}
-setTheme(savedTheme);
-
-copyEmailBtn.addEventListener("click", async () => {
-  const email = "carbonakac12@gmail.com";
-  try {
-    await navigator.clipboard.writeText(email);
-  } catch (err) {
-    const ta = document.createElement("textarea");
-    ta.value = email;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-  }
-  copyEmailBtn.textContent = "COPIED!";
-  setTimeout(() => { copyEmailBtn.textContent = "COPY"; }, 1500);
-});
-
 window.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape" && labModal.classList.contains("show")) closeLab();
 });
