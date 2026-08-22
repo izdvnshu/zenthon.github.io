@@ -107,6 +107,8 @@ function saveDone() {
   try { localStorage.setItem(DONE_KEY, JSON.stringify([...done])); } catch (e) {}
 }
 
+const animejs = window.anime || null;
+
 /* ---------- build sections ---------- */
 function buildSections() {
   const frag = document.createDocumentFragment();
@@ -403,6 +405,9 @@ function studyEnter() {
   document.body.classList.add("study-mode");
   studyToggle.classList.add("active");
   studyBar.classList.add("show");
+  if (animejs) {
+    animejs.animate(studyBar, { translateY: [90, 0], opacity: [0, 1], duration: 380, ease: "out(3)" });
+  }
   searchEl.value = "";
   applySearch();
   let saved = parseInt(localStorage.getItem(STUDY_KEY) || "0", 10);
@@ -415,9 +420,16 @@ function studyExit() {
   studyOn = false;
   document.body.classList.remove("study-mode");
   studyToggle.classList.remove("active");
-  studyBar.classList.remove("show");
   document.querySelectorAll(".topic.study-active").forEach(t => t.classList.remove("study-active"));
   zenSay("STUDY MODE OFF! EXPLORE FREELY!");
+  if (animejs) {
+    animejs.animate(studyBar, {
+      translateY: 90, opacity: 0, duration: 200, ease: "in(2)",
+      complete: () => studyBar.classList.remove("show")
+    });
+  } else {
+    studyBar.classList.remove("show");
+  }
 }
 
 function studySet(i) {
@@ -710,39 +722,103 @@ inputModalCancel.addEventListener("click", () => {
   pendingRun = null;
 });
 
+/* ---------- ANIME.JS ANIMATED DIALOGS (FLIP from button + overlay alpha) ---------- */
+function animatedDialog(id, boxSel, btnId, opts) {
+  const $dialog = document.getElementById(id);
+  const $box = $dialog.querySelector(boxSel);
+  const $btn = document.getElementById(btnId);
+  let busy = false;
+
+  function flipTargets() {
+    const b = $btn.getBoundingClientRect();
+    const r = $box.getBoundingClientRect();
+    const tx = (b.left + b.width / 2) - (r.left + r.width / 2);
+    const ty = (b.top + b.height / 2) - (r.top + r.height / 2);
+    const s = Math.min(1, Math.max(b.width / r.width, b.height / r.height));
+    return { tx, ty, s };
+  }
+
+  function open() {
+    if ($dialog.open || busy) return;
+    busy = true;
+    if (opts.onOpen) opts.onOpen();
+    $dialog.style.setProperty("--overlay-alpha", "0");
+    $dialog.showModal();
+    if (animejs) {
+      const { tx, ty, s } = flipTargets();
+      animejs.animate($box, {
+        translateX: [tx, 0], translateY: [ty, 0], scale: [s, 1],
+        duration: 420, ease: "out(3)"
+      });
+      animejs.animate($dialog, {
+        "--overlay-alpha": opts.alpha,
+        duration: 260, ease: "out(1)",
+        complete: () => { busy = false; }
+      });
+    } else {
+      $dialog.style.setProperty("--overlay-alpha", String(opts.alpha));
+      busy = false;
+    }
+  }
+
+  function close(after) {
+    if (!$dialog.open || busy) return;
+    busy = true;
+    if (opts.onClose) opts.onClose();
+    if (animejs) {
+      const { tx, ty, s } = flipTargets();
+      animejs.animate($box, {
+        translateX: [0, tx], translateY: [0, ty], scale: [1, s],
+        duration: 300, ease: "in(3)"
+      });
+      animejs.animate($dialog, {
+        "--overlay-alpha": 0,
+        duration: 300, ease: "in(2)",
+        complete: () => {
+          $dialog.close();
+          if (after) after();
+          busy = false;
+        }
+      });
+    } else {
+      $dialog.close();
+      if (after) after();
+      busy = false;
+    }
+  }
+
+  $dialog.addEventListener("click", (e) => { if (e.target === $dialog) close(); });
+  $dialog.addEventListener("cancel", (e) => { e.preventDefault(); close(); });
+
+  return { open, close, dialog: $dialog };
+}
+
 /* ---------- ZEN LAB ---------- */
 const labBtn = document.getElementById("labBtn");
 const labClose = document.getElementById("labClose");
-
-labBtn.addEventListener("click", () => {
-  labModal.classList.add("show");
-  labCode.focus();
+const labDlg = animatedDialog("lab", ".lab-modal-box", "labBtn", {
+  alpha: 0.94,
+  onOpen: () => labCode.focus()
 });
 
 function closeLab() {
-  labModal.classList.remove("show");
-  if (activeRun && activeRun.opts.btn === labRun) stopRun();
+  labDlg.close(() => {
+    if (activeRun && activeRun.opts.btn === labRun) stopRun();
+  });
 }
 
+labBtn.addEventListener("click", () => labDlg.open());
 labClose.addEventListener("click", closeLab);
 
 /* ---------- TRACK ---------- */
-const trackModal = document.getElementById("trackModal");
 const trackList = document.getElementById("trackList");
+const trackDlg = animatedDialog("trackModal", ".track-box", "trackBtn", { alpha: 0.85 });
 
 document.getElementById("trackBtn").addEventListener("click", () => {
   renderTrack();
-  trackModal.classList.add("show");
+  trackDlg.open();
 });
-document.getElementById("trackClose").addEventListener("click", () => {
-  trackModal.classList.remove("show");
-});
-trackModal.addEventListener("click", (e) => {
-  if (e.target === trackModal) trackModal.classList.remove("show");
-});
-window.addEventListener("keydown", (ev) => {
-  if (ev.key === "Escape") trackModal.classList.remove("show");
-});
+document.getElementById("trackClose").addEventListener("click", () => trackDlg.close());
 
 function renderTrack() {
   const total = ALL.length;
@@ -771,7 +847,7 @@ function renderTrack() {
       "</div>" +
       '<div class="progress-bar"><div class="progress-fill" style="width:' + (entries.length ? d / entries.length * 100 : 0) + '%"></div></div>';
     row.addEventListener("click", () => {
-      trackModal.classList.remove("show");
+      trackDlg.close();
       const target = document.getElementById("sec-" + cat.id);
       if (target) target.scrollIntoView({ behavior: "smooth" });
     });
@@ -780,10 +856,6 @@ function renderTrack() {
 
   document.getElementById("trackChapters").textContent = chaptersDone + "/" + CATS.length;
 }
-
-window.addEventListener("keydown", (ev) => {
-  if (ev.key === "Escape" && labModal.classList.contains("show")) closeLab();
-});
 
 labRun.addEventListener("click", () => {
   if (activeRun) {

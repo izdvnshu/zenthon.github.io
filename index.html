@@ -132,7 +132,7 @@
       <button class="start-btn" id="startBtn">START LEARNING</button>
     </section>
 
-    <section class="lab lab-modal" id="lab">
+    <dialog class="lab lab-modal" id="lab">
       <div class="lab-modal-box pixel-border">
       <div class="sec-head lab-head">
         <span class="sec-icon">LAB</span>
@@ -154,7 +154,7 @@
         <div class="zen-console lab-console"><div class="zlines" id="labConsole"></div></div>
       </div>
       </div>
-    </section>
+    </dialog>
 
     <div id="sections"></div>
 
@@ -242,7 +242,7 @@
   </div>
 </div>
 
-<div class="modal" id="trackModal">
+<dialog class="modal" id="trackModal">
   <div class="modal-box pixel-border track-box">
     <div class="modal-title">TRACK — YOUR PROGRESS</div>
 
@@ -258,7 +258,7 @@
       <button class="px-btn red" id="trackClose">CLOSE</button>
     </div>
   </div>
-</div>
+</dialog>
 
 <div class="modal" id="inputModal">
   <div class="modal-box pixel-border">
@@ -274,6 +274,7 @@
 
 <button id="topBtn" class="top-btn" title="BACK TO TOP">&#9650;</button>
 
+<script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.iife.min.js"></script>
 <script src="./js/data-1.js"></script>
 <script src="./js/data-2.js"></script>
 <script src="./js/data-3.js"></script>
