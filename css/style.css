@@ -975,3 +975,17 @@ dialog.lab-modal::backdrop {
 dialog.modal::backdrop {
   background: rgba(10, 10, 18, var(--overlay-alpha, 0.85));
 }
+
+/* ============ MOVING PYTHON (hero snake) ============ */
+.snake-seg {
+  animation: snake-wave 1.7s ease-in-out infinite;
+}
+
+@keyframes snake-wave {
+  0%, 100% { transform: translateY(-16px); }
+  50%      { transform: translateY(16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snake-seg { animation: none; }
+}

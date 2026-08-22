@@ -342,6 +342,43 @@ document.getElementById("startBtn").addEventListener("click", () => {
   if (first) first.scrollIntoView({ behavior: "smooth" });
 });
 
+/* ---------- HERO: MOVING PYTHON ---------- */
+(function () {
+  const g = document.getElementById("snakeSegments");
+  if (!g) return;
+
+  const NS = "http://www.w3.org/2000/svg";
+  const SEGS = 18;
+
+  for (let i = 0; i < SEGS; i++) {
+    const p = SEGS - 1 - i; // head at the right
+    const head = i === SEGS - 1;
+    const x = 10 + p * 5.7;
+
+    const r = document.createElementNS(NS, "rect");
+    r.setAttribute("x", head ? x - 1 : x);
+    r.setAttribute("y", head ? 61 : 62);
+    r.setAttribute("width", head ? 10 : 8);
+    r.setAttribute("height", head ? 10 : 8);
+    r.setAttribute("fill", head ? "#8affb1" : (i % 2 ? "#3ddc84" : "#2fb96c"));
+    r.setAttribute("class", "snake-seg");
+    r.style.animationDelay = (p * -0.13).toFixed(2) + "s";
+    g.appendChild(r);
+
+    if (head) {
+      const eye = document.createElementNS(NS, "rect");
+      eye.setAttribute("x", x + 5);
+      eye.setAttribute("y", 63);
+      eye.setAttribute("width", 2);
+      eye.setAttribute("height", 2);
+      eye.setAttribute("fill", "#12081f");
+      eye.setAttribute("class", "snake-seg");
+      eye.style.animationDelay = (p * -0.13).toFixed(2) + "s";
+      g.appendChild(eye);
+    }
+  }
+})();
+
 /* ---------- stats ---------- */
 function buildStats() {
   const cats = new Set(ALL.map(e => e.cat)).size;
