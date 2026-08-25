@@ -17,6 +17,7 @@
   --font-px: 'Space Grotesk', sans-serif;
   --font-body: 'Poppins', sans-serif;
   --font-code: 'JetBrains Mono', ui-monospace, monospace;
+  --font-logo: 'Megrim', 'Poiret One', cursive;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -89,38 +90,34 @@ body::before {
 }
 
 .logo-block {
-  background: var(--purple2);
-  padding: 10px 16px;
-  box-shadow: 6px 6px 0 var(--purple3);
+  background: transparent;
+  padding: 6px 8px;
+  box-shadow: none;
   display: inline-block;
-  border: 2px solid var(--purple);
+  border: none;
 }
 
 .logo {
-  font-family: var(--font-px);
-  font-size: 30px;
+  font-family: var(--font-logo);
+  font-weight: 400;
+  font-size: 42px;
   color: #ffffff;
-  letter-spacing: 1px;
-  text-shadow:
-    1px 1px 0 var(--purple3),
-    -1px -1px 0 var(--purple3),
-    1px -1px 0 var(--purple3),
-    -1px 1px 0 var(--purple3),
-    1px 1px 0 var(--purple3),
-    2px 2px 0 var(--purple3),
-    3px 3px 0 var(--purple-dark),
-    4px 4px 0 var(--purple-dark);
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: none;
   user-select: none;
+  /* thin geometric outline feel like Dyadne image */
+  -webkit-font-smoothing: antialiased;
+  font-stretch: expanded;
 }
 
 .logo-sm {
-  font-size: 16px;
-  text-shadow:
-    1px 1px 0 var(--purple3),
-    -1px -1px 0 var(--purple3),
-    1px -1px 0 var(--purple3),
-    -1px 1px 0 var(--purple3),
-    2px 2px 0 var(--purple-dark);
+  font-family: var(--font-logo);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 0.32em;
+  text-shadow: none;
 }
 
 .logo-sub {
@@ -615,7 +612,8 @@ body::before {
   .main { padding: 20px 14px 50px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-title { font-size: 15px; }
-  .logo { font-size: 16px; }
+  .logo { font-size: 32px; letter-spacing: 0.22em; }
+  .logo-sm { font-size: 18px; letter-spacing: 0.22em; }
 }
 
 /* ============ HEADER ACTIONS ============ */
