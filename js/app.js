@@ -100,8 +100,13 @@ const inputModalCancel = document.getElementById("inputModalCancel");
 
 const DONE_KEY = "zxd-done";
 const STUDY_KEY = "zxd-study";
+const THEME_KEY = "zxd-theme";
+const GMAIL_KEY = "zxd-gmail";
 let done = new Set();
 try { done = new Set(JSON.parse(localStorage.getItem(DONE_KEY) || "[]")); } catch (e) { done = new Set(); }
+let savedTheme = localStorage.getItem(THEME_KEY) || "dark";
+let savedGmail = localStorage.getItem(GMAIL_KEY) || "";
+document.documentElement.setAttribute("data-theme", savedTheme);
 
 function saveDone() {
   try { localStorage.setItem(DONE_KEY, JSON.stringify([...done])); } catch (e) {}
@@ -484,6 +489,23 @@ function studySet(i) {
 }
 
 studyToggle.addEventListener("click", () => { studyOn ? studyExit() : studyEnter(); });
+themeToggle.addEventListener("click", () => {
+  const newTheme = savedTheme === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", newTheme);
+  savedTheme = newTheme;
+  localStorage.setItem(THEME_KEY, newTheme);
+});
+gmailBtn.addEventListener("click", () => {
+  const email = prompt("Enter GMAIL ID:", savedGmail || "");
+  if (email !== null) {
+    savedGmail = email || "";
+    localStorage.setItem(GMAIL_KEY, savedGmail);
+    const gmailDisplay = document.getElementById("gmailDisplay");
+    if (gmailDisplay) {
+      gmailDisplay.textContent = savedGmail || "GMAIL ID not set";
+    }
+  }
+});
 studyPrev.addEventListener("click", () => studySet(studyIdx - 1));
 studyNext.addEventListener("click", () => studySet(studyIdx + 1));
 studyExitBtn.addEventListener("click", studyExit);
@@ -504,6 +526,7 @@ const WORKER_SRC = [
   'const CDN = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";',
   'importScripts(CDN + "pyodide.js");',
   'let pyodide = null;',
+  'let loadedPackages = new Set();',
   'self.onmessage = async function (ev) {',
   '  const msg = ev.data;',
   '  if (msg.type === "load") {',
@@ -513,6 +536,21 @@ const WORKER_SRC = [
   '    } catch (e) {',
   '      self.postMessage({ type: "error", message: String((e && e.message) || e) });',
   '    }',
+  '    return;',
+  '  }',
+  '  if (msg.type === "loadPackages") {',
+  '    const packages = msg.packages || [];',
+  '    for (const pkg of packages) {',
+  '      if (!loadedPackages.has(pkg)) {',
+  '        try {',
+  '          await pyodide.loadPackage(pkg);',
+  '          loadedPackages.add(pkg);',
+  '        } catch (e) {',
+  '          console.warn("Failed to load package:", pkg, e);',
+  '        }',
+  '      }',
+  '    }',
+  '    self.postMessage({ type: "packagesLoaded", packages: [...loadedPackages] });',
   '    return;',
   '  }',
   '  if (msg.type === "run") {',
@@ -529,7 +567,7 @@ const WORKER_SRC = [
   '      pyodide.setStderr({ batched: function (s) { lines.push(s); } });',
   '      const g = pyodide.globals.get("dict")();',
   '      g.set("__zen_inputs", msg.inputs || []);',
-  '      pyodide.runPython("import builtins\\n__zen_i = [str(x) for x in __zen_inputs]\\ndef __zen_in(p=\'\'):\\n    if not __zen_i:\\n        raise RuntimeError(\'NO MORE INPUTS\')\\n    return __zen_i.pop(0)\\nbuiltins.input = __zen_in", { globals: g });',
+  '      pyodide.runPython("import builtins\\nimport sys\\nimport json\\n__zen_i = [str(x) for x in __zen_inputs]\\ndef __zen_in(p=\'\'):\\n    if not __zen_i:\\n        raise RuntimeError(\'NO MORE INPUTS\')\\n    return __zen_i.pop(0)\\nbuiltins.input = __zen_in", { globals: g });',
   '      pyodide.runPython(msg.code, { globals: g });',
   '      flush();',
   '      self.postMessage({ type: "done", seq: seq, ok: true });',
@@ -545,6 +583,11 @@ let engine = null;
 let engineLoading = null;
 let engineEverLoaded = false;
 let activeRun = null;
+let loadedPackages = new Set();
+const COMMON_PACKAGES = [
+  "numpy", "pandas", "matplotlib", "micropip", "scipy", 
+  "requests", "beautifulsoup4", "lxml", "pillow"
+];
 
 function ensureEngine() {
   if (engine) return Promise.resolve(engine);
@@ -574,6 +617,8 @@ function ensureEngine() {
       } else if (m.type === "done") {
         const h = engine && engine.handlers[m.seq];
         if (h && h.onDone) h.onDone(m.ok, m.error);
+      } else if (m.type === "packagesLoaded") {
+        m.packages.forEach(p => loadedPackages.add(p));
       }
     };
     worker.onerror = (e) => {
@@ -585,10 +630,26 @@ function ensureEngine() {
   return engineLoading;
 }
 
+async function loadPackages(packages) {
+  const toLoad = packages.filter(p => !loadedPackages.has(p));
+  if (!toLoad.length) return;
+  await ensureEngine();
+  engine.worker.postMessage({ type: "loadPackages", packages: toLoad });
+  return new Promise((resolve) => {
+    const check = setInterval(() => {
+      if (toLoad.every(p => loadedPackages.has(p))) {
+        clearInterval(check);
+        resolve();
+      }
+    }, 100);
+  });
+}
+
 function killEngine() {
   if (engine) {
     try { engine.worker.terminate(); } catch (e) {}
     engine = null;
+    loadedPackages.clear();
   }
   engineLoading = null;
 }
@@ -934,6 +995,11 @@ buildNav();
 buildStats();
 updateProgress();
 document.getElementById("footerYear").textContent = "© 2026 ZENTHON — PIXEL PYTHON ACADEMY";
+
+const gmailDisplay = document.getElementById("gmailDisplay");
+if (gmailDisplay) {
+  gmailDisplay.textContent = savedGmail || "GMAIL ID not set";
+}
 
 document.querySelectorAll(".sec").forEach(s => spy.observe(s));
 

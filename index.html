@@ -23,11 +23,14 @@
   <a class="logo-block" href="https://github.com/izdvnshu" target="_blank" rel="noopener" title="ZENTHON ON GITHUB">
     <div class="logo">ZENTHON</div>
   </a>
-  <div class="header-right">
+<div class="header-right">
     <div class="header-stats" id="headerStats">LOADING...</div>
     <button class="hdr-btn" id="studyToggle">STUDY MODE</button>
     <button class="hdr-btn" id="labBtn">ZEN LAB</button>
     <button class="hdr-btn" id="trackBtn">TRACK</button>
+<button class="hdr-btn" id="themeToggle">THEME</button>
+    <button class="hdr-btn" id="gmailBtn">GMAIL</button>
+    <button class="hdr-btn" id="assistBtn">ZEN ASSIST</button>
   </div>
 </header>
 
@@ -70,15 +73,42 @@
         <button class="px-btn red lab-close" id="labClose" title="CLOSE">X</button>
       </div>
       <div class="lab-box">
-        <textarea id="labCode" class="px" spellcheck="false"></textarea>
+        <div class="lab-toolbar">
+          <div class="lab-templates">
+            <label class="modal-hint" for="labTemplate">TEMPLATES:</label>
+            <select id="labTemplate" class="px-btn">
+              <option value="">-- SELECT TEMPLATE --</option>
+              <option value="basic">BASIC: Variables & Print</option>
+              <option value="math">MATH: Numbers, Random, Math Module</option>
+              <option value="numpy">NUMPY: Arrays, Matrices, Linear Algebra</option>
+              <option value="pandas">PANDAS: DataFrames, CSV, Analysis</option>
+              <option value="matplotlib">MATPLOTLIB: Plots, Charts, Visualization</option>
+              <option value="collections">COLLECTIONS: Counter, DefaultDict, Deque</option>
+              <option value="itertools">ITERTOOLS: Combinations, Permutations</option>
+              <option value="datetime">DATETIME: Dates, Times, Timezones</option>
+              <option value="regex">REGEX: Pattern Matching, Extraction</option>
+              <option value="file">FILE I/O: Read, Write, JSON, CSV</option>
+              <option value="os_sys">OS & SYS: Paths, Args, Environment</option>
+              <option value="async">ASYNC: Asyncio, Await, Tasks</option>
+              <option value="oop">OOP: Classes, Inheritance, Dataclasses</option>
+              <option value="functional">FUNCTIONAL: Map, Filter, Reduce, Lambda</option>
+            </select>
+          </div>
+          <div class="lab-packages">
+            <label class="modal-hint" for="labPackages">PACKAGES TO LOAD:</label>
+            <div class="pkg-checkboxes" id="pkgCheckboxes"></div>
+          </div>
+        </div>
+        <textarea id="labCode" class="px" spellcheck="false" placeholder="# Write your Python code here...&#10;&#10;# Try:&#10;# import numpy as np&#10;# arr = np.array([1, 2, 3])&#10;# print(arr * 2)"></textarea>
         <div class="lab-actions">
           <button class="px-btn green" id="labRun">RUN</button>
           <button class="px-btn red" id="labStop">STOP</button>
           <button class="px-btn" id="labClear">CLEAR</button>
+          <button class="px-btn" id="labLoadPkgs">LOAD PACKAGES</button>
         </div>
         <div class="lab-inputs">
           <label class="modal-hint" for="labInputs">INPUTS FOR input() — ONE PER LINE (OPTIONAL):</label>
-          <textarea id="labInputs" class="px small" spellcheck="false"></textarea>
+          <textarea id="labInputs" class="px small" spellcheck="false" placeholder="Enter inputs here, one per line..."></textarea>
         </div>
         <div class="zen-console lab-console"><div class="zlines" id="labConsole"></div></div>
       </div>
@@ -91,6 +121,7 @@
       <div class="logo logo-sm">ZENTHON</div>
       <p class="footer-text">PIXEL PYTHON ACADEMY — CODE. COMPILE. CONQUER.</p>
       <p class="footer-text" id="footerYear"></p>
+      <p class="footer-text" id="gmailDisplay"></p>
       <p class="footer-text made-with">MADE WITH LOVE BY DEVANSHU</p>
     </footer>
   </main>
@@ -188,6 +219,34 @@
     </div>
   </div>
 </dialog>
+<div class="assist-modal" id="assistModal">
+  <div class="assist-modal-box pixel-border">
+    <div class="sec-head assist-head">
+      <span class="sec-icon">AI</span>
+      <h2 class="sec-title">ZEN ASSIST — MiMo V2.5</h2>
+      <span class="sec-count">OPENCODE CLONE</span>
+      <button class="px-btn red assist-close" id="assistClose" title="CLOSE">X</button>
+    </div>
+    <div class="assist-chat">
+      <div class="assist-messages" id="assistMessages">
+        <div class="assist-msg assistant">
+          <div class="assist-avatar">Z</div>
+          <div class="assist-bubble">HELLO! I'M ZEN ASSIST, POWERED BY MiMo V2.5 Free. I CAN HELP YOU WITH PYTHON, CODE REVIEW, EXPLANATIONS, AND MORE. WHAT DO YOU NEED?</div>
+        </div>
+      </div>
+      <div class="assist-input-row">
+        <textarea id="assistInput" class="assist-input" placeholder="ASK ZEN ASSIST ANYTHING..." rows="1"></textarea>
+        <button class="px-btn green assist-send" id="assistSend">SEND</button>
+      </div>
+    </div>
+    <div class="assist-config" id="assistConfig">
+      <label class="assist-config-label" for="apiKeyInput">OPENROUTER API KEY:</label>
+      <input type="password" id="apiKeyInput" class="assist-api-input" placeholder="sk-or-v1-...">
+      <button class="px-btn" id="saveApiKey">SAVE KEY</button>
+      <span class="assist-config-hint">GET YOUR FREE KEY AT <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OPENROUTER.AI</a></span>
+    </div>
+  </div>
+</div>
 
 <div class="modal" id="inputModal">
   <div class="modal-box pixel-border">
@@ -211,5 +270,6 @@
 <script src="./js/data-5.js"></script>
 <script src="./js/data-6.js"></script>
 <script src="./js/app.js"></script>
+<script src="./js/assist.js"></script>
 </body>
 </html>
