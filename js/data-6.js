@@ -695,4 +695,58 @@ if r==N:
 else:
     print("not a PALINDROME")`, output: `None`, explain: "Negative indexes start from the end, so N[-1] is the last character. The loop appends characters one by one to r, building the reversed word. Comparing r with N decides which message prints." },
 
+{ id: "f6-078", cat: "class11", title: "Area of a circle from radius", desc: "Reads the radius as a float and computes the area with the formula pi times radius squared. Pi is approximated as 3.14. The area is printed with a label.", code: `radius = float(input("enter the radius-"))
+area = 3.14*(radius*radius)
+print(area , "Is the area of circle.")`, output: `1519.76 Is the area of circle.`, explain: "The radius 22 is read as a float. The expression 3.14 times radius times radius computes the area as 1519.76. Print joins the number and the label with a space, showing the result for the given radius." },
+
+{ id: "f6-079", cat: "class11", title: "Celsius to Fahrenheit", desc: "Converts a temperature from Celsius to Fahrenheit using the formula Fahrenheit equals Celsius times 9 divided by 5 plus 32. Both the original and converted values are printed.", code: `cels=float(input("enter temp in celsius"))
+print("temperature in celsius is:",cels)
+fahr=cels*9/5+32
+print("Temperature in fahrenheit is :",fahr)`, output: `temperature in celsius is: 27.0
+Temperature in fahrenheit is : 80.6`, explain: "The Celsius value is read as a float, here 27. The conversion multiplies by 9, divides by 5 and adds 32 to get 80.6. Both the input and the converted temperature are printed with labels." },
+
+{ id: "f6-080", cat: "class11", title: "Swap three numbers", desc: "Reads three integers, prints them, then reassigns them using tuple unpacking so the second and third numbers become cumulative sums. The swapped result is printed.", code: `X=int(input("ENTER NUMBER 1"))
+Y=int(input("ENTER NUMBER 2"))
+Z=int(input("ENTER NUMBER 3"))
+print("ORIGINAL NUMBER:",X,Y,Z)
+X,Y,Z=X,X+Y,X+Y+Z
+print("AFTER SWAPPING:",X,Y,Z)`, output: `ORIGINAL NUMBER: 24 2345 24
+AFTER SWAPPING: 24 2369 2393`, explain: "The triple assignment evaluates the right side with the original X, Y and Z before overwriting: X stays 24, Y becomes 24 plus 2345 equals 2369, and Z becomes 24 plus 2345 plus 24 equals 2393. Both the original and new triples are printed." },
+
+{ id: "f6-081", cat: "class11", title: "Area and perimeter of a parallelogram", desc: "Reads the length, side width and height of a parallelogram as floats and calculates its area as length times height and perimeter as two times length plus width. A header and both results are printed.", code: `l = float(input("Enter the length of the parallelogram: "))
+w = float(input("Enter the side of the parallelogram: "))
+h = float(input("Enter the height of the parallelogram: "))
+area = l * h
+perimeter = 2 * (l + w)
+print("\n--- Results ---")
+print("Area of the Parallelogram:", area)
+print("Perimeter of the Parallelogram:", perimeter)`, output: `--- Results ---
+Area of the Parallelogram: 280.0
+Perimeter of the Parallelogram: 190.0`, explain: "For length 40, side 55 and height 7, area is 40 times 7 equals 280 and perimeter is 2 times (40 plus 55) equals 190. The program prints a header line and then the two computed values." },
+
+{ id: "f6-082", cat: "class11", title: "Powers of a number n^2, n^3, n^4", desc: "Reads an integer and computes its square, cube and fourth power using the exponent operator. Each power is printed with a label.", code: `n = int(input("Enter a number: "))
+square = n ** 2
+cube = n ** 3
+fourth_power = n ** 4
+print("Square (n^2):", square)
+print("Cube (n^3):", cube)
+print("Fourth power (n^4):", fourth_power)`, output: `Square (n^2): 1024
+Cube (n^3): 32768
+Fourth power (n^4): 1048576`, explain: "For n equals 32, the exponent operator computes 32 squared as 1024, cubed as 32768 and to the fourth power as 1048576. Each result is printed on its own line with a label." },
+
+{ id: "f6-083", cat: "class11", title: "Miles to kilometres", desc: "Converts a distance from miles to kilometres by dividing by 0.621371, the number of miles in a kilometre. Both the original miles and the converted kilometres are printed.", code: `miles=int(input("enter miles:"))
+km=miles/0.621371
+print("miles:" ,miles)
+print("kilometres:" ,km)`, output: `miles: 1000
+kilometres: 1609.3444978925634`, explain: "The program reads miles as an integer, here 1000, and divides by 0.621371 to convert to kilometres. The result about 1609.34 is the standard conversion for 1000 miles, and both values are printed." },
+
+{ id: "f6-084", cat: "class11", title: "Days left in month using calendar module", desc: "Uses the datetime and calendar modules to find today's date and the number of days in the current month, then subtracts today from the month length to get days remaining. Both today and days left are printed.", code: `from datetime import date
+import calendar
+today = date.today()
+days_left = calendar.monthrange(today.year, today.month)[1] - today.day
+print("Today:", today)
+print("Days left in month:", days_left)`, output: `Today: 2026-09-02
+Days left in month: 28`, explain: "date.today returns the current date and calendar.monthrange returns the number of days in that month. For September 2026 the month has 30 days, so 30 minus 2 leaves 28 days. The output varies with the actual date the program runs." },
+
+
 ]);
