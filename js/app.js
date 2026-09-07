@@ -376,7 +376,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
       eye.setAttribute("y", 63);
       eye.setAttribute("width", 2);
       eye.setAttribute("height", 2);
-      eye.setAttribute("fill", "#12081f");
+      eye.setAttribute("fill", "#1c1c1c");
       eye.setAttribute("class", "snake-seg");
       eye.style.animationDelay = (p * -0.13).toFixed(2) + "s";
       g.appendChild(eye);
