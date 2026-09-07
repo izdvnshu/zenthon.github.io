@@ -17,7 +17,7 @@
   --font-px: 'Space Grotesk', sans-serif;
   --font-body: 'Poppins', sans-serif;
   --font-code: 'JetBrains Mono', ui-monospace, monospace;
-  --font-logo: 'Titan One', 'Luckiest Guy', 'Fredoka', cursive;
+  --font-logo: 'Cinzel Decorative', 'Titan One', cursive;
 }
 
 [data-theme="light"] {
@@ -35,6 +35,14 @@
   --green: #2c9e6e;
   --yellow: #d4a853;
   --red: #d15b61;
+}
+
+/* aesthetic logo finish — darker gradient variant for the light theme */
+[data-theme="light"] .logo,
+[data-theme="light"] .logo-sm {
+  background: linear-gradient(180deg, var(--purple3) 0%, var(--purple2) 55%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -116,34 +124,37 @@ body::before {
 
 .logo {
   font-family: var(--font-logo);
-  font-weight: 400;
-  font-size: 38px;
-  color: #ffffff;
-  letter-spacing: 1.5px;
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: 2px;
   line-height: 1;
   text-transform: uppercase;
   user-select: none;
-  /* Pixar-style bubbly 3D extrusion - Cooper/Titan One look */
-  text-shadow:
-    0 1px 0 var(--purple3),
-    0 2px 0 var(--purple3),
-    0 3px 0 var(--purple-dark),
-    0 4px 0 var(--purple-dark),
-    2px 4px 0 var(--purple-dark),
-    4px 4px 0 rgba(0,0,0,0.45);
+  /* aesthetic gradient finish — white fading into purple with a soft glow */
+  background: linear-gradient(180deg, #ffffff 0%, #e8d5ff 45%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(0 2px 0 var(--purple-dark))
+    drop-shadow(0 4px 6px rgba(0,0,0,0.45))
+    drop-shadow(0 0 12px rgba(157,78,221,0.45));
   -webkit-font-smoothing: antialiased;
   transform: translateY(-1px);
 }
 
 .logo-sm {
   font-family: var(--font-logo);
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 1px;
-  text-shadow:
-    0 1px 0 var(--purple3),
-    0 2px 0 var(--purple-dark),
-    2px 2px 0 rgba(0,0,0,0.4);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 1.5px;
+  background: linear-gradient(180deg, #ffffff 0%, #e8d5ff 45%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(0 1px 0 var(--purple-dark))
+    drop-shadow(0 0 8px rgba(157,78,221,0.4));
 }
 
 .logo-sub {
