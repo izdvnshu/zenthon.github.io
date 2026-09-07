@@ -28,8 +28,8 @@
     <button class="hdr-btn" id="labBtn">ZEN LAB</button>
     <button class="hdr-btn" id="trackBtn">TRACK</button>
 <button class="hdr-btn" id="themeToggle">THEME</button>
-    <button class="hdr-btn" id="gmailBtn">GMAIL</button>
-    <button class="hdr-btn" id="assistBtn">ZEN ASSIST</button>
+    <button class="hdr-btn" id="gmailBtn">NAME</button>
+    <button class="hdr-btn" id="conquerBtn">CONQUER</button>
   </div>
 </header>
 
@@ -218,32 +218,22 @@
     </div>
   </div>
 </dialog>
-<div class="assist-modal" id="assistModal">
-  <div class="assist-modal-box pixel-border">
-    <div class="sec-head assist-head">
-      <span class="sec-icon">AI</span>
-      <h2 class="sec-title">ZEN ASSIST — MiMo V2.5</h2>
-      <span class="sec-count">OPENCODE CLONE</span>
-      <button class="px-btn red assist-close" id="assistClose" title="CLOSE">X</button>
+<div class="cnq-modal" id="conquerModal">
+  <div class="cnq-modal-box pixel-border">
+    <div class="sec-head cnq-head">
+      <span class="sec-icon">CNQ</span>
+      <h2 class="sec-title">CONQUER — NOTEBOOK MODE</h2>
+      <span class="sec-count" id="cnqStatus">IDLE</span>
+      <button class="px-btn red cnq-close" id="conquerClose" title="CLOSE">X</button>
     </div>
-    <div class="assist-chat">
-      <div class="assist-messages" id="assistMessages">
-        <div class="assist-msg assistant">
-          <div class="assist-avatar">Z</div>
-          <div class="assist-bubble">HELLO! I'M ZEN ASSIST, POWERED BY MiMo V2.5 Free. I CAN HELP YOU WITH PYTHON, CODE REVIEW, EXPLANATIONS, AND MORE. WHAT DO YOU NEED?</div>
-        </div>
-      </div>
-      <div class="assist-input-row">
-        <textarea id="assistInput" class="assist-input" placeholder="ASK ZEN ASSIST ANYTHING..." rows="1"></textarea>
-        <button class="px-btn green assist-send" id="assistSend">SEND</button>
-      </div>
+    <div class="cnq-toolbar">
+      <button class="px-btn green" id="cnqRunAll">RUN ALL</button>
+      <button class="px-btn" id="cnqAddCell">+ CELL</button>
+      <button class="px-btn" id="cnqRestart">RESTART</button>
+      <button class="px-btn" id="cnqClearOut">CLEAR OUTPUTS</button>
+      <button class="px-btn red" id="cnqWipe">WIPE BOOK</button>
     </div>
-    <div class="assist-config" id="assistConfig">
-      <label class="assist-config-label" for="apiKeyInput">OPENROUTER API KEY:</label>
-      <input type="password" id="apiKeyInput" class="assist-api-input" placeholder="sk-or-v1-...">
-      <button class="px-btn" id="saveApiKey">SAVE KEY</button>
-      <span class="assist-config-hint">GET YOUR FREE KEY AT <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OPENROUTER.AI</a></span>
-    </div>
+    <div class="cnq-notebook" id="cnqNotebook"></div>
   </div>
 </div>
 
@@ -269,6 +259,6 @@
 <script src="./js/data-5.js"></script>
 <script src="./js/data-6.js"></script>
 <script src="./js/app.js"></script>
-<script src="./js/assist.js"></script>
+<script src="./js/conquer.js"></script>
 </body>
 </html>

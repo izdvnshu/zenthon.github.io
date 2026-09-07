@@ -520,6 +520,50 @@ document.addEventListener("keydown", (ev) => {
 /* =========================================================
    RUN ENGINE (Pyodide in a Web Worker)
    ========================================================= */
+/* ---------- CONQUER kernel helper (runs inside the worker) ----------
+   Executes a cell against persistent globals; evaluates the last
+   expression like a notebook and captures inline plot images. */
+const NB_HELPER_PY = [
+  "import ast, sys, io, base64 as __nb_b64",
+  "def __nb_exec(__nb_code):",
+  "    __g = globals()",
+  "    __tree = ast.parse(__nb_code, mode='exec')",
+  "    __res = None",
+  "    if __tree.body and isinstance(__tree.body[-1], ast.Expr):",
+  "        __last = __tree.body.pop()",
+  "        exec(compile(__tree, '<cell>', 'exec'), __g)",
+  "        __res = eval(compile(ast.Expression(__last.value), '<cell>', 'eval'), __g)",
+  "    else:",
+  "        exec(compile(__tree, '<cell>', 'exec'), __g)",
+  "    __out = repr(__res) if __res is not None else ''",
+  "    __imgs = []",
+  "    if 'matplotlib.pyplot' in sys.modules:",
+  "        import matplotlib.pyplot as plt",
+  "        for __num in plt.get_fignums():",
+  "            __buf = io.BytesIO()",
+  "            plt.figure(__num).savefig(__buf, format='png', dpi=110)",
+  "            __imgs.append('data:image/png;base64,' + __nb_b64.b64encode(__buf.getvalue()).decode())",
+  "        plt.close('all')",
+  "    return (__out, __imgs)"
+].join("\n");
+
+/* input() override for notebook cells (reads from a queued list) */
+const NB_INPUT_SETUP_PY = [
+  "import builtins",
+  "__nb_i = [str(x) for x in __nb_inputs]",
+  "def __nb_in(p=''):",
+  "    if not __nb_i:",
+  "        raise RuntimeError('NO MORE INPUTS')",
+  "    return __nb_i.pop(0)",
+  "builtins.input = __nb_in"
+].join("\n");
+
+/* headless plotting backend for inline plot capture */
+const NB_MPL_INIT_PY = [
+  "import os",
+  "os.environ['MPLBACKEND'] = 'AGG'"
+].join("\n");
+
 const PYODIDE_CDN = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";
 
 const WORKER_SRC = [
@@ -527,6 +571,10 @@ const WORKER_SRC = [
   'importScripts(CDN + "pyodide.js");',
   'let pyodide = null;',
   'let loadedPackages = new Set();',
+  'let nbGlobals = null;',
+  'const NB_HELPER = ' + JSON.stringify(NB_HELPER_PY) + ';',
+  'const NB_INPUT_SETUP = ' + JSON.stringify(NB_INPUT_SETUP_PY) + ';',
+  'const NB_MPL_INIT = ' + JSON.stringify(NB_MPL_INIT_PY) + ';',
   'self.onmessage = async function (ev) {',
   '  const msg = ev.data;',
   '  if (msg.type === "load") {',
@@ -576,6 +624,48 @@ const WORKER_SRC = [
   '      self.postMessage({ type: "done", seq: seq, ok: false, error: String((e && e.message) || e) });',
   '    }',
   '  }',
+  '  if (msg.type === "nbRun") {',
+  '    const seq = msg.seq;',
+  '    let lines = [];',
+  '    const flush = function () {',
+  '      if (lines.length) {',
+  '        self.postMessage({ type: "nbLine", seq: seq, text: lines.join("\\n") });',
+  '        lines = [];',
+  '      }',
+  '    };',
+  '    try {',
+  '      if (!nbGlobals) {',
+  '        nbGlobals = pyodide.globals.get("dict")();',
+  '        pyodide.runPython(NB_MPL_INIT, { globals: nbGlobals });',
+  '        pyodide.runPython(NB_HELPER, { globals: nbGlobals });',
+  '      }',
+  '      pyodide.setStdout({ batched: function (s) { lines.push(s); } });',
+  '      pyodide.setStderr({ batched: function (s) { lines.push(s); } });',
+  '      nbGlobals.set("__nb_inputs", msg.inputs || []);',
+  '      nbGlobals.set("__nb_code", msg.code);',
+  '      pyodide.runPython(NB_INPUT_SETUP, { globals: nbGlobals });',
+  '      const res = pyodide.runPython("__nb_exec(__nb_code)", { globals: nbGlobals });',
+  '      let outText = "";',
+  '      let imgs = [];',
+  '      if (res) {',
+  '        const arr = res.toJs ? res.toJs() : res;',
+  '        outText = String(arr[0] || "");',
+  '        imgs = arr[1] || [];',
+  '        if (res.destroy) res.destroy();',
+  '      }',
+  '      flush();',
+  '      self.postMessage({ type: "nbDone", seq: seq, ok: true, result: outText, images: imgs });',
+  '    } catch (e) {',
+  '      flush();',
+  '      self.postMessage({ type: "nbDone", seq: seq, ok: false, error: String((e && e.message) || e) });',
+  '    }',
+  '    return;',
+  '  }',
+  '  if (msg.type === "nbReset") {',
+  '    nbGlobals = null;',
+  '    self.postMessage({ type: "nbDone", seq: -1, ok: true, result: "", images: [], reset: true });',
+  '    return;',
+  '  }',
   '};'
 ].join("\n");
 
@@ -617,6 +707,13 @@ function ensureEngine() {
       } else if (m.type === "done") {
         const h = engine && engine.handlers[m.seq];
         if (h && h.onDone) h.onDone(m.ok, m.error);
+      } else if (m.type === "nbLine") {
+        const h = engine && engine.handlers[m.seq];
+        if (h && h.onLine) h.onLine(m.text);
+      } else if (m.type === "nbDone") {
+        if (m.seq === -1) return;
+        const h = engine && engine.handlers[m.seq];
+        if (h && h.onNbDone) h.onNbDone(m.ok, m.error, m.result, m.images);
       } else if (m.type === "packagesLoaded") {
         m.packages.forEach(p => loadedPackages.add(p));
       }
