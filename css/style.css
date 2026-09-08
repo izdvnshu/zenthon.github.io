@@ -5,9 +5,9 @@
   --panel: #161618;
   --panel2: #1c1c1f;
   --border: #2c2c2e;
-  /* accent — kept as --purple* names for compatibility, values follow opencode.ai dark palette */
-  --purple: #007aff;
-  --purple2: #0056b3;
+  /* accent — kept as --purple* names for compatibility, values are ghost purple (not opencode's blue) */
+  --purple: #a78bfa;
+  --purple2: #6d55a8;
   --purple3: #1c1c1f;
   --purple-dark: #101012;
   --white: #ffffff;
