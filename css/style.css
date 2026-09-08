@@ -5,9 +5,9 @@
   --panel: #161618;
   --panel2: #1c1c1f;
   --border: #2c2c2e;
-  /* accent — kept as --purple* names for compatibility, values are ghost purple (not opencode's blue) */
-  --purple: #a78bfa;
-  --purple2: #6d55a8;
+  /* accent — kept as --purple* names for compatibility, values are neutral monochrome (no accent color) */
+  --purple: #e4e4e7;
+  --purple2: #a1a1a6;
   --purple3: #1c1c1f;
   --purple-dark: #101012;
   --white: #ffffff;
