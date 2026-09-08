@@ -67,6 +67,7 @@ body {
   width: 30px;
   height: 30px;
   flex-shrink: 0;
+  image-rendering: pixelated;
   filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.75));
   animation: orb-pulse 3s ease-in-out infinite;
   transition: transform 0.25s ease;
@@ -91,6 +92,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-orb-sm {
+  width: 22px;
+  height: 22px;
+  image-rendering: pixelated;
+}
 .logo-sm {
   font-family: var(--font-logo);
   font-weight: 700;
