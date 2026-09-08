@@ -100,13 +100,10 @@ const inputModalCancel = document.getElementById("inputModalCancel");
 
 const DONE_KEY = "zxd-done";
 const STUDY_KEY = "zxd-study";
-const THEME_KEY = "zxd-theme";
 const GMAIL_KEY = "zxd-gmail";
 let done = new Set();
 try { done = new Set(JSON.parse(localStorage.getItem(DONE_KEY) || "[]")); } catch (e) { done = new Set(); }
-let savedTheme = localStorage.getItem(THEME_KEY) || "dark";
 let savedGmail = localStorage.getItem(GMAIL_KEY) || "";
-document.documentElement.setAttribute("data-theme", savedTheme);
 
 function saveDone() {
   try { localStorage.setItem(DONE_KEY, JSON.stringify([...done])); } catch (e) {}
@@ -489,12 +486,6 @@ function studySet(i) {
 }
 
 studyToggle.addEventListener("click", () => { studyOn ? studyExit() : studyEnter(); });
-themeToggle.addEventListener("click", () => {
-  const newTheme = savedTheme === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", newTheme);
-  savedTheme = newTheme;
-  localStorage.setItem(THEME_KEY, newTheme);
-});
 gmailBtn.addEventListener("click", () => {
   const email = prompt("Enter GMAIL ID:", savedGmail || "");
   if (email !== null) {

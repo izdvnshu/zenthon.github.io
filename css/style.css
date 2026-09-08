@@ -1,20 +1,20 @@
 /* ============ ZENTHON — THEME VARIABLES ============ */
 :root {
-  --bg: #161616;
-  --bg2: #1b1b1b;
-  --panel: #202020;
-  --panel2: #191919;
-  --border: #2e2e2e;
-  /* accent — kept as --purple* names for compatibility, values are ghost purple */
-  --purple: #a78bfa;
-  --purple2: #6d55a8;
-  --purple3: #2b2836;
-  --purple-dark: #17151d;
-  --white: #f0efea;
-  --dim: #9c9a94;
-  --green: #4ade80;
-  --yellow: #e3c567;
-  --red: #f87171;
+  --bg: #0c0c0e;
+  --bg2: #101012;
+  --panel: #161618;
+  --panel2: #1c1c1f;
+  --border: #2c2c2e;
+  /* accent — kept as --purple* names for compatibility, values follow opencode.ai dark palette */
+  --purple: #007aff;
+  --purple2: #0056b3;
+  --purple3: #1c1c1f;
+  --purple-dark: #101012;
+  --white: #ffffff;
+  --dim: #a1a1a6;
+  --green: #30d158;
+  --yellow: #ff9f0a;
+  --red: #ff453a;
   --font-px: 'Space Grotesk', sans-serif;
   --font-body: 'Poppins', sans-serif;
   --font-code: 'JetBrains Mono', ui-monospace, monospace;
@@ -22,22 +22,7 @@
   --font-logo: 'Orbitron', sans-serif;
 }
 
-[data-theme="light"] {
-  --bg: #faf9f5;
-  --bg2: #f2f0e9;
-  --panel: #ffffff;
-  --panel2: #f5f4ef;
-  --border: #e3e1d8;
-  --purple: #7c5cd6;
-  --purple2: #6648bd;
-  --purple3: #e6e3f2;
-  --purple-dark: #e6e3f2;
-  --white: #1f1e1d;
-  --dim: #6b6862;
-  --green: #2c7a51;
-  --yellow: #a07d2d;
-  --red: #c0453f;
-}
+/* dark only — single opencode-style theme */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
