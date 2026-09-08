@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="pearl" cx="38%" cy="34%" r="72%">
+      <stop offset="0%" stop-color="#d8c2ff"/>
+      <stop offset="35%" stop-color="#8b5cf6"/>
+      <stop offset="70%" stop-color="#4c1d95"/>
+      <stop offset="100%" stop-color="#1e1038"/>
+    </radialGradient>
+    <radialGradient id="disc" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#17151f"/>
+      <stop offset="100%" stop-color="#050508"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2"/>
+    </filter>
+    <filter id="softglow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+  </defs>
+  <!-- round black disc -->
+  <circle cx="32" cy="32" r="27" fill="url(#disc)"/>
+  <circle cx="32" cy="32" r="27" fill="none" stroke="#2c2c34" stroke-width="1.5"/>
+  <!-- purple aura behind the pearl -->
+  <circle cx="32" cy="32" r="15" fill="#7c3aed" opacity="0.45" filter="url(#glow)"/>
+  <!-- glowing purple pearl -->
+  <circle cx="32" cy="32" r="13" fill="url(#pearl)"/>
+  <circle cx="32" cy="32" r="13" fill="none" stroke="#b794ff" stroke-width="0.8" opacity="0.5" filter="url(#softglow)"/>
+  <!-- specular highlight -->
+  <ellipse cx="26.5" cy="25.5" rx="4.2" ry="2.6" fill="#efe7ff" opacity="0.85" transform="rotate(-28 26.5 25.5)"/>
+</svg>

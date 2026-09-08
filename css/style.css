@@ -58,8 +58,25 @@ body {
   background: transparent;
   padding: 6px 8px;
   box-shadow: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   border: none;
+}
+.logo-orb {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.75));
+  animation: orb-pulse 3s ease-in-out infinite;
+  transition: transform 0.25s ease;
+}
+.logo-block:hover .logo-orb {
+  transform: scale(1.12) rotate(12deg);
+}
+@keyframes orb-pulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(124, 58, 237, 0.55)); }
+  50%      { filter: drop-shadow(0 0 11px rgba(139, 92, 246, 0.95)); }
 }
 
 .logo {
