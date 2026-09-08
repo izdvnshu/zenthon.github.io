@@ -5,11 +5,11 @@
   --panel: #202020;
   --panel2: #191919;
   --border: #2e2e2e;
-  /* accent — kept as --purple* names for compatibility, values are neutral coral */
-  --purple: #d97757;
-  --purple2: #b85f43;
-  --purple3: #2e2b29;
-  --purple-dark: #191716;
+  /* accent — kept as --purple* names for compatibility, values are ghost purple */
+  --purple: #a78bfa;
+  --purple2: #6d55a8;
+  --purple3: #2b2836;
+  --purple-dark: #17151d;
   --white: #f0efea;
   --dim: #9c9a94;
   --green: #4ade80;
@@ -28,10 +28,10 @@
   --panel: #ffffff;
   --panel2: #f5f4ef;
   --border: #e3e1d8;
-  --purple: #c15f3c;
-  --purple2: #a84e30;
-  --purple3: #e3e1d8;
-  --purple-dark: #e3e1d8;
+  --purple: #7c5cd6;
+  --purple2: #6648bd;
+  --purple3: #e6e3f2;
+  --purple-dark: #e6e3f2;
   --white: #1f1e1d;
   --dim: #6b6862;
   --green: #2c7a51;
