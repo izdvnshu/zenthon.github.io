@@ -49,23 +49,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 14px 24px;
+  gap: 14px;
+  padding: 9px 20px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.4);
 }
 
 .logo-block {
   background: transparent;
-  padding: 6px 8px;
+  padding: 4px 6px;
   box-shadow: none;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   border: none;
 }
 .logo-orb {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   image-rendering: pixelated;
   filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.75));
@@ -83,8 +83,8 @@ body {
 .logo {
   font-family: var(--font-logo);
   font-weight: 700;
-  font-size: 28px;
-  letter-spacing: 4px;
+  font-size: 20px;
+  letter-spacing: 2.5px;
   line-height: 1;
   text-transform: uppercase;
   color: var(--white);
@@ -597,18 +597,18 @@ body {
 
 .hdr-btn {
   font-family: var(--font-px);
-  font-size: 11px;
-  color: #fff;
-  background: var(--purple2);
-  border: 1px solid var(--purple);
-  padding: 10px 12px;
+  font-size: 10.5px;
+  color: var(--white);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 7px 10px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  box-shadow: none;
   transition: all 0.12s;
 }
 
-.hdr-btn:hover { background: var(--purple); transform: translate(-1px,-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.35); }
-.hdr-btn.active { background: var(--purple); border-color: var(--yellow); }
+.hdr-btn:hover { background: var(--purple3); color: var(--white); }
+.hdr-btn.active { background: var(--purple3); border-color: var(--border); color: var(--white); }
 
 /* ============ CODE HEAD ACTIONS ============ */
 .code-head-actions { display: flex; align-items: center; gap: 8px; }
