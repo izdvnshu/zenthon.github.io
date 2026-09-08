@@ -705,7 +705,7 @@ textarea.px.small { min-height: 60px; font-size: 15px; }
   padding: 12px;
   background: #141414;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 .lab-templates, .lab-packages { flex: 1; min-width: 200px; }
@@ -748,7 +748,7 @@ textarea.px.small { min-height: 60px; font-size: 15px; }
   background: var(--panel);
   padding: 4px 8px;
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 0;
   transition: all 0.1s;
 }
 
@@ -1191,7 +1191,7 @@ dialog.modal::backdrop {
   padding: 30px 10px;
 }
 
-/* ============ MINIMAL ROUNDED CORNERS ============ */
+/* ============ SQUARE CORNERS (no rounding) ============ */
 .search, .cat-item, .progress-box, .progress-bar, .progress-fill,
 .stat, .start-btn, .sec-head, .topic, .codebox, .outbox,
 .hdr-btn, .run-btn, .copy-btn, .px-btn, .top-btn,
@@ -1199,7 +1199,7 @@ dialog.modal::backdrop {
 textarea.px, .pkg-checkboxes label, .track-row,
 .cnq-modal-box, .cnq-toolbar, .cnq-notebook, .cnq-cell,
 .cnq-cell-head, .cnq-code, .cnq-inputs, .cnq-out {
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 .codebox, .outbox { overflow: hidden; }
