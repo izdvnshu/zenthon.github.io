@@ -68,7 +68,7 @@ body {
   height: 24px;
   flex-shrink: 0;
   image-rendering: pixelated;
-  filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.75));
+  filter: drop-shadow(0 0 5px rgba(147, 51, 234, 0.75));
   animation: orb-pulse 3s ease-in-out infinite;
   transition: transform 0.25s ease;
 }
@@ -76,8 +76,8 @@ body {
   transform: scale(1.12) rotate(12deg);
 }
 @keyframes orb-pulse {
-  0%, 100% { filter: drop-shadow(0 0 4px rgba(124, 58, 237, 0.55)); }
-  50%      { filter: drop-shadow(0 0 11px rgba(139, 92, 246, 0.95)); }
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(147, 51, 234, 0.55)); }
+  50%      { filter: drop-shadow(0 0 11px rgba(147, 51, 234, 0.95)); }
 }
 
 .logo {
