@@ -1,25 +1,26 @@
 /* ============ ZENTHON — THEME VARIABLES ============ */
+/* theme colors + fonts from DEVSHADOWS (ghost purple × black) */
 :root {
-  --bg: #0c0c0e;
-  --bg2: #101012;
-  --panel: #161618;
-  --panel2: #1c1c1f;
-  --border: #2c2c2e;
-  /* accent — kept as --purple* names for compatibility, values are neutral monochrome (no accent color) */
-  --purple: #e4e4e7;
-  --purple2: #a1a1a6;
-  --purple3: #1c1c1f;
-  --purple-dark: #101012;
-  --white: #ffffff;
-  --dim: #a1a1a6;
+  --bg: #050507;
+  --bg2: #0a0a10;
+  --panel: #101018;
+  --panel2: #161622;
+  --border: #232031;
+  /* accent — kept as --purple* names for compatibility, values are devshadows ghost purple */
+  --purple: #b8a5ff;
+  --purple2: #8d7bd8;
+  --purple3: #1b1a28;
+  --purple-dark: #0a0a10;
+  --white: #e6e2f2;
+  --dim: #9a94b5;
   --green: #30d158;
   --yellow: #ff9f0a;
   --red: #ff453a;
-  --font-px: 'Space Grotesk', sans-serif;
-  --font-body: 'Poppins', sans-serif;
+  --font-px: 'Oranienbaum', Georgia, serif;
+  --font-body: 'Oranienbaum', Georgia, serif;
   --font-code: 'JetBrains Mono', ui-monospace, monospace;
-  --font-head: 'Orbitron', sans-serif;
-  --font-logo: 'Orbitron', sans-serif;
+  --font-head: 'Bitcount Prop Single', system-ui, sans-serif;
+  --font-logo: 'Bitcount Prop Single', system-ui, sans-serif;
 }
 
 /* dark only — single opencode-style theme */
@@ -68,7 +69,7 @@ body {
   height: 24px;
   flex-shrink: 0;
   image-rendering: pixelated;
-  filter: drop-shadow(0 0 5px rgba(147, 51, 234, 0.75));
+  filter: drop-shadow(0 0 5px rgba(184, 165, 255, 0.75));
   animation: orb-pulse 3s ease-in-out infinite;
   transition: transform 0.25s ease;
 }
@@ -76,8 +77,8 @@ body {
   transform: scale(1.12) rotate(12deg);
 }
 @keyframes orb-pulse {
-  0%, 100% { filter: drop-shadow(0 0 4px rgba(147, 51, 234, 0.55)); }
-  50%      { filter: drop-shadow(0 0 11px rgba(147, 51, 234, 0.95)); }
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(184, 165, 255, 0.55)); }
+  50%      { filter: drop-shadow(0 0 11px rgba(184, 165, 255, 0.95)); }
 }
 
 .logo {
@@ -439,7 +440,7 @@ body {
 }
 
 .codebox {
-  background: #141414;
+  background: #101018;
   border: 1px solid var(--border);
   margin-bottom: 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.35);
@@ -482,16 +483,16 @@ body {
   font-family: var(--font-code);
   font-size: 15px;
   line-height: 1.55;
-  color: #e8e6e1;
+  color: #e6e2f2;
   scrollbar-width: thin;
   scrollbar-color: var(--purple3) transparent;
 }
 
 .codebox code { white-space: pre; }
 
-.codebox .kw { color: var(--yellow); }
-.codebox .st { color: var(--green); }
-.codebox .cm { color: var(--purple); font-style: italic; }
+.codebox .kw { color: #c39bff; }
+.codebox .st { color: #a8e6b8; }
+.codebox .cm { color: #5c5778; font-style: italic; }
 
 .outbox {
   background: #0c1512;
@@ -520,7 +521,7 @@ body {
 }
 
 .t-explain {
-  color: #cfcfe8;
+  color: #cfc9e4;
   border-top: 2px dashed var(--border);
   padding-top: 12px;
 }
@@ -631,7 +632,7 @@ body {
 
 /* ============ ZEN CONSOLE ============ */
 .zen-console {
-  background: #141414;
+  background: #101018;
   border: 1px solid var(--border);
   margin-bottom: 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.35);
@@ -646,7 +647,7 @@ body {
 }
 
 .zlines { display: flex; flex-direction: column; gap: 2px; }
-.zline { color: #e8e6e1; white-space: pre-wrap; word-break: break-word; }
+.zline { color: #e6e2f2; white-space: pre-wrap; word-break: break-word; }
 
 .zline.zen-info { color: var(--purple); font-family: var(--font-px); font-size: 11px; padding-top: 8px; }
 .zline.zen-ok { color: var(--green); font-family: var(--font-px); font-size: 11px; padding-top: 8px; }
@@ -690,9 +691,9 @@ body {
 
 textarea.px {
   width: 100%;
-  background: #141414;
+  background: #101018;
   border: 1px solid var(--border);
-  color: #e8e6e1;
+  color: #e6e2f2;
   font-family: var(--font-code);
   font-size: 15px;
   line-height: 1.55;
@@ -716,7 +717,7 @@ textarea.px.small { min-height: 60px; font-size: 15px; }
   gap: 16px;
   margin-bottom: 14px;
   padding: 12px;
-  background: #141414;
+  background: #101018;
   border: 1px solid var(--border);
   border-radius: 0;
 }
@@ -1083,7 +1084,7 @@ dialog.modal::backdrop {
 .cnq-notebook::-webkit-scrollbar-thumb { background: var(--purple3); }
 
 .cnq-cell {
-  background: #141414;
+  background: #101018;
   border: 1px solid var(--border);
   border-left: 4px solid var(--purple2);
   overflow: hidden;
@@ -1143,14 +1144,14 @@ dialog.modal::backdrop {
   outline: none;
 }
 
-.cnq-code:focus { background: #101010; }
+.cnq-code:focus { background: #07070c; }
 
 .cnq-inputs {
   display: none;
   width: 100%;
   min-height: 46px;
   resize: vertical;
-  background: #0f0f0f;
+  background: #07070c;
   color: var(--yellow);
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
@@ -1166,7 +1167,7 @@ dialog.modal::backdrop {
 .cnq-out {
   display: none;
   border-top: 1px solid var(--border);
-  background: #0c0c0c;
+  background: #07070c;
   padding: 8px 12px;
   max-height: 280px;
   overflow: auto;
@@ -1178,7 +1179,7 @@ dialog.modal::backdrop {
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
   line-height: 1.55;
-  color: #e8e6e1;
+  color: #e6e2f2;
   white-space: pre-wrap;
   word-break: break-word;
 }

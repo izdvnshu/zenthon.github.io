@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -4 106 72" width="96" height="64">
   <!-- ZENTHON monogram : angular S built from two interlocked hexagonal hooks -->
-  <g fill="none" stroke="#9333ea" stroke-linejoin="miter" stroke-miterlimit="14">
+  <g fill="none" stroke="#b8a5ff" stroke-linejoin="miter" stroke-miterlimit="14">
     <!-- left hook (opens toward center) -->
     <path d="M40 4 L12 18 L12 30 L36 42 L42 34 L26 27 L40 21 Z" stroke-width="6"/>
     <!-- right hook (180deg mirror, opens toward center) -->

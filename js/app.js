@@ -362,7 +362,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
     r.setAttribute("y", head ? 61 : 62);
     r.setAttribute("width", head ? 10 : 8);
     r.setAttribute("height", head ? 10 : 8);
-    r.setAttribute("fill", head ? "#8affb1" : (i % 2 ? "#3ddc84" : "#2fb96c"));
+    r.setAttribute("fill", head ? "#cbbcff" : (i % 2 ? "#8d7bd8" : "#6b5fa8"));
     r.setAttribute("class", "snake-seg");
     r.style.animationDelay = (p * -0.13).toFixed(2) + "s";
     g.appendChild(r);
@@ -373,7 +373,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
       eye.setAttribute("y", 63);
       eye.setAttribute("width", 2);
       eye.setAttribute("height", 2);
-      eye.setAttribute("fill", "#1c1c1c");
+      eye.setAttribute("fill", "#050507");
       eye.setAttribute("class", "snake-seg");
       eye.style.animationDelay = (p * -0.13).toFixed(2) + "s";
       g.appendChild(eye);
