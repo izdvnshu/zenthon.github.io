@@ -442,7 +442,7 @@ let studyIdx = 0;
 function studyEnter() {
   studyOn = true;
   document.body.classList.add("study-mode");
-  studyToggle.classList.add("active");
+  studyToggle?.classList.add("active");
   studyBar.classList.add("show");
   if (animejs) {
     animejs.animate(studyBar, { translateY: [90, 0], opacity: [0, 1], duration: 380, ease: "out(3)" });
@@ -458,7 +458,7 @@ function studyEnter() {
 function studyExit() {
   studyOn = false;
   document.body.classList.remove("study-mode");
-  studyToggle.classList.remove("active");
+  studyToggle?.classList.remove("active");
   document.querySelectorAll(".topic.study-active").forEach(t => t.classList.remove("study-active"));
   zenSay("STUDY MODE OFF! EXPLORE FREELY!");
   if (animejs) {
@@ -485,8 +485,8 @@ function studySet(i) {
   studyFill.style.width = ((studyIdx + 1) / ALL.length * 100) + "%";
 }
 
-studyToggle.addEventListener("click", () => { studyOn ? studyExit() : studyEnter(); });
-gmailBtn.addEventListener("click", () => {
+studyToggle?.addEventListener("click", () => { studyOn ? studyExit() : studyEnter(); });
+gmailBtn?.addEventListener("click", () => {
   const email = prompt("Enter GMAIL ID:", savedGmail || "");
   if (email !== null) {
     savedGmail = email || "";
@@ -916,6 +916,7 @@ function animatedDialog(id, boxSel, btnId, opts) {
   let busy = false;
 
   function flipTargets() {
+    if (!$btn) return { tx: 0, ty: 0, s: 1 };
     const b = $btn.getBoundingClientRect();
     const r = $box.getBoundingClientRect();
     const tx = (b.left + b.width / 2) - (r.left + r.width / 2);
@@ -993,7 +994,7 @@ function closeLab() {
   });
 }
 
-labBtn.addEventListener("click", () => labDlg.open());
+if (labBtn) labBtn.addEventListener("click", () => labDlg.open());
 labClose.addEventListener("click", closeLab);
 
 /* ---------- TRACK ---------- */

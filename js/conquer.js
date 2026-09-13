@@ -345,7 +345,7 @@ function cnqWipe() {
 }
 
 /* ---------- modal ---------- */
-conquerBtn.addEventListener("click", () => {
+if (conquerBtn) conquerBtn.addEventListener("click", () => {
   conquerModal.classList.add("show");
   cnqRenderBook();
 });
