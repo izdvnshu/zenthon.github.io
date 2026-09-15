@@ -748,5 +748,36 @@ print("Today:", today)
 print("Days left in month:", days_left)`, output: `Today: 2026-09-02
 Days left in month: 28`, explain: "date.today returns the current date and calendar.monthrange returns the number of days in that month. For September 2026 the month has 30 days, so 30 minus 2 leaves 28 days. The output varies with the actual date the program runs." },
 
+{ id: "f6-085", cat: "class11", title: "Right angled triangle calculator", desc: "Reads two sides and one acute angle of a right-angled triangle, finds the missing side with the Pythagorean theorem and the missing acute angle with the angle sum property. The larger of the two sides is taken as the hypotenuse. Valid only when the entered angle is less than 90 degrees.", code: `import math
+
+print("RIGHT ANGLED TRIANGLE CALCULATOR")
+
+side1 = float(input("Enter first side: "))
+side2 = float(input("Enter second side: "))
+
+angle = float(input("Enter one angle (in degrees): "))
+
+if angle < 90:
+    if side1 > side2:
+        hypotenuse = side1
+        other_side = side2
+    else:
+        hypotenuse = side2
+        other_side = side1
+
+    # Calculate the missing side using the Pythagorean theorem
+    missing_side = math.sqrt(hypotenuse**2 - other_side**2)
+
+    print("\\nMissing side =", missing_side)
+
+    # Calculate the missing acute angle
+    missing_angle = 180 - 90 - angle
+
+    print("Given angle =", angle, "degrees")
+    print("Missing angle =", missing_angle, "degrees")
+    print("Right angle = 90 degrees")
+
+else:
+    print("Please enter an angle less than 90")`, output: `None`, explain: "The program treats the larger side as the hypotenuse and uses h squared minus a squared inside math.sqrt to get the missing side, since a squared plus b squared equals h squared. The angles of a triangle sum to 180, so with one 90 degree angle the other acute angle is 180 minus 90 minus the given angle. If the given angle is 90 or more a warning is printed instead." },
 
 ]);
