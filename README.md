@@ -4,7 +4,7 @@ The professional best for learning python with useful code snippets
 
 SIMPLY USE THIS WEBSITE ON THIS LINK :- https://izdvnshu.github.io/zenthon.github.io/
 
-WHY ZENTHON
--FREE TO USE 
--SIMPLE UNDERSTANDING
--EASY TO LEARN AND PRACTICE CODE SNIPPETS
+#WHY ZENTHON
+#-FREE TO USE 
+#-SIMPLE UNDERSTANDING
+#-EASY TO LEARN AND PRACTICE CODE SNIPPETS
