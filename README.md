@@ -1,5 +1,5 @@
 # zenthon.github.io
-<img width="1898" height="913" alt="image" src="https://github.com/user-attachments/assets/779eb1c3-25c5-4da0-a5e6-0759321e3c29" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/76750127-7798-4396-906c-39b9e67c92cc" />
 The professional best for learning python with useful code snippets
 
 SIMPLY USE THIS WEBSITE ON THIS LINK :- https://izdvnshu.github.io/zenthon.github.io/
